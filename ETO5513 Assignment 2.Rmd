@@ -19,7 +19,12 @@ library(png)
 ```
 
 # Introduction & Research Questions
+Neo-classical economic growth models (such as the Cobbs-Douglas production function) suggest that GDP can be forecasted using a linear combination of national technology and capital levels, and labour growth (Dykas et al.  2023, p.42). Within the scope of “capital”, endogenous growth theory suggests that traditional physical capital has given way to include both human capital (Martin & Sunley 1998) and social infrastructure as essential ingredients to a nations’ economic potential (Saygili & Ozdemir 2021). Specifically education directly effects human capital, and factors such as environmental protections and healthcare access contribute to social infrastructure (Trinh et al. 2023, Saygili & Ozdemir 2021). Emerging from the traditional view of labour growth, gender diversity and female engagement in the workforce directly impacts labour growth rates and positively impacts on output growth rates (Dahlum et al. 2022). This report will thus discuss and analyse the four questions:
 
+1. Does higher levels of education lead to better economic growth?
+2. Do environmental protections lead to increased economic growth?
+3. Does greater access to healthcare positively impact on economic growth?
+4. Does a greater female workforce increase economic growth?
 
 # Data Set Introduction
 
