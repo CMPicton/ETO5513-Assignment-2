@@ -1,0 +1,51 @@
+---
+title: "Assignment 2"
+author: "Cameron Picton"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r setup, include=FALSE}
+# load libraries
+library(tidyverse)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+library(png)
+```
+
+# Introduction & Research Questions
+Neo-classical economic growth models (such as the Cobbs-Douglas production function) suggest that GDP can be forecasted using a linear combination of national technology and capital levels, and labour growth (Dykas et al.  2023, p.42). Within the scope of “capital”, endogenous growth theory suggests that traditional physical capital has given way to include both human capital (Martin & Sunley 1998) and social infrastructure as essential ingredients to a nations’ economic potential (Saygili & Ozdemir 2021). Specifically education directly effects human capital, and factors such as environmental protections and healthcare access contribute to social infrastructure (Trinh et al. 2023, Saygili & Ozdemir 2021). Emerging from the traditional view of labour growth, gender diversity and female engagement in the workforce directly impacts labour growth rates and positively impacts on output growth rates (Dahlum et al. 2022). This report will thus discuss and analyse the four questions:
+
+1. Does higher levels of education lead to better economic growth?
+2. Do environmental protections lead to increased economic growth?
+3. Does greater access to healthcare positively impact on economic growth?
+4. Does a greater female workforce increase economic growth?
+
+# Data Set Introduction
+
+## Data Exploration
+
+## Data Summary
+
+# Visualisations
+
+# Modelling
+
+# Conclusions
+
+# References
+
+Dahlum, S., Knutsen, C. H., & Mechkova, V. (2022). Women’s political empowerment and economic growth. *World Development*, 156, 105822. https://doi.org/10.1016/j.worlddev.2022.105822.
+
+Dykas, P., Tokarski, T., Wisła, R., & Taylor & Francis. (2023). *The Solow model of economic growth: application to contemporary macroeconomic issues*. Routledge, Taylor & Francis Group. https://doi.org/10.4324/9781003323792
+
+Martin, R., & Sunley, P. (1998). Slow convergence? The new endogenous growth theory and regional development. *Economic Geography*, 74(3), 201–227. https://doi.org/10.1111/j.1944-8287.1998.tb00113.x
+
+Saygılı, H., & Özdemir, K. A. (2021). Regional economic growth in Turkey: the effects of physical, social and financial infrastructure investment. *Empirical Economics*, 60(4), 2039–2061. https://doi.org/10.1007/s00181-020-01828-0
+
+Trinh, H. H., McCord, M., Lo, D., & Squires, G. (2023). Do green growth and technological innovation matter to infrastructure investments in the era of climate change? Global evidence. *Applied Economics*, 55(35), 4108–4129. https://doi.org/10.1080/00036846.2022.2125493
