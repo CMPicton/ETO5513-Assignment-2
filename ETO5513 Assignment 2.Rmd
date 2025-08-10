@@ -12,9 +12,10 @@ library(ggplot2)
 library(knitr)
 library(kableExtra)
 library(png)
+library(broom)
 ```
 
-# Introduction & Research Questions
+# ***Introduction***
 Neo-classical economic growth models (such as the Cobbs-Douglas production function) suggest that GDP can be forecasted using a linear combination of national technology and capital levels, and labour growth (Dykas et al.  2023, p.42). Within the scope of “capital”, endogenous growth theory suggests that traditional physical capital has given way to include both human capital (Martin & Sunley 1998) and social infrastructure as essential ingredients to a nations’ economic potential (Saygili & Ozdemir 2021). Specifically education directly effects human capital, and factors such as environmental protections and healthcare access contribute to social infrastructure (Trinh et al. 2023, Saygili & Ozdemir 2021). Emerging from the traditional view of labour growth, gender diversity and female engagement in the workforce directly impacts labour growth rates and positively impacts on output growth rates (Dahlum et al. 2022). This report will thus discuss and analyse the four questions:
 
 1. Does higher levels of education lead to better economic growth?
@@ -22,7 +23,7 @@ Neo-classical economic growth models (such as the Cobbs-Douglas production funct
 3. Does greater access to healthcare positively impact on economic growth?
 4. Does a greater female workforce increase economic growth?
 
-# Data Set Introduction
+# ***Data Set Introduction***
 The data being used to investigate this problem records 96 variables across 66 nations for the year 2017. The data identifies 93 quantitative socio-economic variables, 2 categorical variables (nation & region), and a country code variable. The data is contained within one comma delimited file and was downloaded from:
 
 https://www.kaggle.com/datasets/nishanthsalian/socioeconomic-country-profiles/data
@@ -37,10 +38,10 @@ Socio_Econ %>%
 
 ```
 
-# Analysis - Healthcare Access & Gender Diversity
+# ***Analysis - Healthcare Access & Gender Diversity***
 The second part of this analysis will focus on how healthcare access - as social capital - and female workforce engagement - as labour - impact economic growth.
 
-## Data Exploration
+## ***Data Exploration***
 Each question will focus on two dependent variables and will use GDP per capita (USD) to represent economic growth. Healthcare access will use healthcare expenditure as a percentage of GDP and life expectancy at birth to represent a nations investment in healthcare access. Gender diversity will use labour force participation and the number of seats women hold in parliament as measures of female engagement in the economy.  
 
 ```{r, warning=FALSE}
@@ -53,7 +54,7 @@ Analysis_df
 
 ```
 
-## Results & Discussion
+## ***Results - Healthcare Access***
 
 ```{r, fig.height=12, fig.width=8}
 # The analysis for health expenditure may be distorted by values which are below 0%. As this is non-sensical, rows containing values less then 0 are removed.
@@ -81,6 +82,8 @@ ggplot(data = Analysis_df) +
 
 ```
 
+## ***Results - Gender Diversity***
+
 ```{r, fig.height=12, fig.width=8}
 ggplot(data = Analysis_df) + 
   geom_point(mapping = aes(x = `Female labour participation (%)`, y = `GDP per capita (USD)`, colour = Region)) +
@@ -106,12 +109,20 @@ ggplot(data = Parliament_df) +
 
 ```
 
-## Modelling
+## ***Regression Modelling***
+
+```{r}
+Econ_model <- lm(`GDP per capita (USD)` ~ `Health expenditure (%GDP)` + `Life expectancy (Years)` + `Female labour participation (%)` + `Parliament seats held by women`, data = Analysis_df)
+tidy(Econ_model) 
+summary(Econ_model)
+```
+## ***Discussion***
 
 
-# Conclusions
+# ***Conclusions***
 
-# References
+
+# ***References***
 
 Dahlum, S., Knutsen, C. H., & Mechkova, V. (2022). Women’s political empowerment and economic growth. *World Development*, 156, 105822. https://doi.org/10.1016/j.worlddev.2022.105822.
 
