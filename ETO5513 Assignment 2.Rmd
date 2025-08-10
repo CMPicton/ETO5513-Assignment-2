@@ -118,6 +118,12 @@ summary(Econ_model)
 ```
 ## ***Discussion***
 
+Regaring healthcare access, the plots analysing the relationship between healthcare expenditure and GDP per capita show a random scatter in the data but with a generally - yet weak - positive trend overall. Faceted for specific regions the data shows only positive correlations in Eastern Asia and Northern Europe, whereas other regions do not illustrate a linear relationship. With respect to life expectancy, the line-plot shows a positive trending relationship between increased life expectancy and increased GDP per capita, however strong variation exists around a strictly linear relationship, indicating a weak correlation. Thus whilst a weak relationship does seem to exist in the data between healthcare access and GDP, this is contrary to the findings in the literature, which suggest a stronger correlation (Saygili & Ozdemir 2021).
+
+In analysing gender diversity data, the scatterplots of female labour participation and GDP per capita showed an overall random scatter, suggesting a lack of linear correlation. However when faceted by region, Western and Northern Europe and Western Asia, showed a mildly positive correlation between female labour participation and increased GDP. Conversely the line graph illustrating the dependency of GDP per capita on the amount of female parliamentarians showed no linear correlation whatsoever. Given Dahlum et al. (2022) strongly conclude that female economic participation is determinative of economic growth - at least in the long-run -, these results are contradictory to the literature.
+
+Furthermore, multiple linear regression was constructed to model GDP per capita as a function of health expenditure, life expectancy, female labour participation and the amount of female parliamentarians. Whilst these 4 variables accounted for 55.1% of the variation in the GDP per capita data (with a R-squared value of 0.551), only life expectancy was statistically significant (below a 0.01 threshold). 
+
 
 # ***Conclusions***
 
