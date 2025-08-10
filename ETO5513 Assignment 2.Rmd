@@ -6,10 +6,6 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-```{r setup, include=FALSE}
 # load libraries
 library(tidyverse)
 library(ggplot2)
@@ -31,7 +27,6 @@ The data being used to investigate this problem records 96 variables across 66 n
 
 https://www.kaggle.com/datasets/nishanthsalian/socioeconomic-country-profiles/data
 
-## Data Exploration
 ```{r}
 # read in data file
 Socio_Econ <- as_tibble(read.csv("soci_econ_country_profiles.csv"))
@@ -42,11 +37,77 @@ Socio_Econ %>%
 
 ```
 
-## Data Summary
+# Analysis - Healthcare Access & Gender Diversity
+The second part of this analysis will focus on how healthcare access - as social capital - and female workforce engagement - as labour - impact economic growth.
 
-# Visualisations
+## Data Exploration
+Each question will focus on two dependent variables and will use GDP per capita (USD) to represent economic growth. Healthcare access will use healthcare expenditure as a percentage of GDP and life expectancy at birth to represent a nations investment in healthcare access. Gender diversity will use labour force participation and the number of seats women hold in parliament as measures of female engagement in the economy.  
 
-# Modelling
+```{r, warning=FALSE}
+Analysis_df <- Socio_Econ %>%
+  select("country", "Region", "GDP.per.capita..current.US..", "Health..Total.expenditure....of.GDP.", "Life.expectancy.at.birth..total..years.", "Labour.force.participation..female.male.pop....", "Seats.held.by.women.in.national.parliaments..") %>%
+  rename(Nation = "country", "GDP per capita (USD)" = GDP.per.capita..current.US.., "Health expenditure (%GDP)" = Health..Total.expenditure....of.GDP., "Life expectancy (Years)" = Life.expectancy.at.birth..total..years., "Labour force participation (%)" = Labour.force.participation..female.male.pop...., "Parliament seats held by women" = Seats.held.by.women.in.national.parliaments..) %>%
+  separate("Labour force participation (%)", into = c("Female labour participation (%)", "Male labour force"), convert = TRUE) %>%
+  select(-("Male labour force"))
+Analysis_df 
+
+```
+
+## Results & Discussion
+
+```{r, fig.height=12, fig.width=8}
+# The analysis for health expenditure may be distorted by values which are below 0%. As this is non-sensical, rows containing values less then 0 are removed.
+Health_df <- Analysis_df %>%
+  filter(`Health expenditure (%GDP)` >= 0)
+
+ggplot(data = Health_df) + 
+  geom_point(mapping = aes(x = `Health expenditure (%GDP)`, y = `GDP per capita (USD)`, colour = Region)) +
+  labs(
+    title = "GDP per capita & Health expenditure for 66 nations",
+    subtitle = "2017")
+
+ggplot(data = Health_df) + 
+  geom_point(mapping = aes(x = `Health expenditure (%GDP)`, y = `GDP per capita (USD)`)) +
+  facet_wrap(~ Region, nrow = 7) +
+  labs(
+    title = "GDP per capita & Health expenditure for 66 nations by Region",
+    subtitle = "2017")
+
+ggplot(data = Analysis_df) +
+  geom_line(mapping = aes(x = `Life expectancy (Years)`, y = `GDP per capita (USD)`), color = "blue", linewidth=2) +
+  labs(
+    title = "GDP per capita & Life expectancy for 66 nations",
+    subtitle = "2017")
+
+```
+
+```{r, fig.height=12, fig.width=8}
+ggplot(data = Analysis_df) + 
+  geom_point(mapping = aes(x = `Female labour participation (%)`, y = `GDP per capita (USD)`, colour = Region)) +
+  labs(
+    title = "GDP per capita & Female labour participation (%) for 66 nations",
+    subtitle = "2017")
+
+ggplot(data = Analysis_df) + 
+  geom_point(mapping = aes(x = `Female labour participation (%)`, y = `GDP per capita (USD)`)) +
+  facet_wrap(~ Region, nrow = 7) +
+  labs(
+    title = "GDP per capita & Female labour participation (%) for 66 nations by Region",
+    subtitle = "2017")
+
+Parliament_df <- Analysis_df %>%
+  filter(`Parliament seats held by women` >= 0)
+
+ggplot(data = Parliament_df) +
+  geom_line(mapping = aes(x = `Parliament seats held by women`, y = `GDP per capita (USD)`), color = "red", linewidth = 1) +
+  labs(
+    title = "GDP per capita & Female Parliamentarians for 66 nations",
+    subtitle = "2017")
+
+```
+
+## Modelling
+
 
 # Conclusions
 
