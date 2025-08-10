@@ -1,0 +1,12 @@
+---
+title: "Gus_Conclusion"
+author: "Gustav McRae-Johns"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# Conclusion
+
+This analysis examined how education expenditure and industrial employment relate to GDP per capita across countries. The findings suggest that neither variable alone offers a strong or consistent explanation of income levels. The relationship between education spending and GDP appears highly variable, likely due to differences in education quality, governance, or lag effects. Similarly, higher employment in industry tends to occur in lower-income, industrialising economies, whereas high-income countries show lower industrial employment, reflecting structural transformation.
+
+Overall, the visual trends lack clarity, indicating that simple bivariate analysis may be insufficient. A more robust approach—such as multiple or non-linear regression models, or inclusion of additional variables (e.g., productivity, service sector size, or education quality)—may yield deeper insights into the complex drivers of GDP.
