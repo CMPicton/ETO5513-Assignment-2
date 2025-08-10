@@ -1,0 +1,16 @@
+---
+title: "Gus_References"
+author: "Gustav McRae-Johns"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# References
+
+Hanushek, EA & Woessmann, L 2010, *The economics of international differences in educational achievement*, NBER Working Paper No. 15949, National Bureau of Economic Research, viewed 7 August 2025, <https://www.nber.org/papers/w15949>.
+
+Kaldor, N 1966, *Causes of the slow rate of economic growth of the United Kingdom*, Cambridge University Press, Cambridge.
+
+Kuznets, S 1966, *Modern economic growth: Rate, structure and spread*, Yale University Press, New Haven.
+
+UNIDO (United Nations Industrial Development Organization) 2013, *Industrial development report 2013: Sustaining employment growth*, UNIDO, Vienna, viewed 7 August 2025, <https://www.unido.org/sites/default/files/2013-12/UNIDO_IDR_2013_0.pdf>.
