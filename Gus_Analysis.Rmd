@@ -1,0 +1,91 @@
+---
+title: "Gus_Analysis"
+author: "Gustav McRae-Johns"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# Load and Clean Data
+
+```{r load-data, message=FALSE, warning=FALSE}
+Econ_data <- read_csv("soci_econ_country_profiles.csv")  
+
+# Clean and rename variables
+Econ_clean <- Econ_data %>%
+  select(
+    Country = country,  
+    GDP_per_Capita = `GDP per capita (current US$)`,
+    Education_Expenditure = `Education: Government expenditure (% of GDP)`,
+    Industry_Employment = `Employment: Industry (% of employed)`,
+  ) %>%
+  drop_na() %>%
+  filter(
+    GDP_per_Capita > 0,
+    Education_Expenditure > 0,
+    Industry_Employment > 0,
+  )
+```
+***
+
+# Descriptive Summary
+
+```{r summary-tables, message=FALSE, warning=FALSE}
+
+# GDP per Capita
+Econ_clean %>%
+  summarise(
+    Mean = mean(GDP_per_Capita, na.rm = TRUE),
+    SD   = sd(GDP_per_Capita, na.rm = TRUE),
+    Min  = min(GDP_per_Capita, na.rm = TRUE),
+    Max  = max(GDP_per_Capita, na.rm = TRUE)
+  ) %>%
+  mutate(across(everything(), as.numeric)) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = "Statistic",
+    values_to = "Value"
+  ) %>%
+  kable(
+    digits = 2,
+    caption = "GDP per Capita — Descriptive Statistics"
+  )
+
+# Education Expenditure
+Econ_clean %>%
+  summarise(
+    Mean = mean(Education_Expenditure, na.rm = TRUE),
+    SD   = sd(Education_Expenditure, na.rm = TRUE),
+    Min  = min(Education_Expenditure, na.rm = TRUE),
+    Max  = max(Education_Expenditure, na.rm = TRUE)
+  ) %>%
+  mutate(across(everything(), as.numeric)) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = "Statistic",
+    values_to = "Value"
+  ) %>%
+  kable(
+    digits = 2,
+    caption = "Education Expenditure (% of GDP) — Descriptive Statistics"
+  )
+
+# Industry Employment
+Econ_clean %>%
+  summarise(
+    Mean = mean(Industry_Employment, na.rm = TRUE),
+    SD   = sd(Industry_Employment, na.rm = TRUE),
+    Min  = min(Industry_Employment, na.rm = TRUE),
+    Max  = max(Industry_Employment, na.rm = TRUE)
+  ) %>%
+  mutate(across(everything(), as.numeric)) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = "Statistic",
+    values_to = "Value"
+  ) %>%
+  kable(
+    digits = 2,
+    caption = "Industry Employment (% of Employed) — Descriptive Statistics"
+  )
+
+```
