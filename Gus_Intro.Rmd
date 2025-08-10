@@ -1,0 +1,17 @@
+---
+title: "Gus_Intro"
+author: "Gustav McRae-Johns"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(tidyr)
+library(readr)
+library(ggplot2)
+library(knitr)
+library(rmarkdown)
+
+```
