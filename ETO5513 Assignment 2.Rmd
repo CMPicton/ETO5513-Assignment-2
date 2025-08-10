@@ -1,8 +1,11 @@
 ---
-title: "Assignment 2"
+title: "An Analysis of Socio-Economic Factors in Economic Growth Theory"
+subtitle: "Assignment 2 - ETO5513"
 author: "Cameron Picton"
 date: "`r Sys.Date()`"
 output: html_document
+bibliography: references.bib
+csl: apa.csl
 ---
 
 ```{r setup, include=FALSE}
@@ -16,7 +19,7 @@ library(broom)
 ```
 
 # ***Introduction***
-Neo-classical economic growth models (such as the Cobbs-Douglas production function) suggest that GDP can be forecasted using a linear combination of national technology and capital levels, and labour growth (Dykas et al.  2023, p.42). Within the scope of “capital”, endogenous growth theory suggests that traditional physical capital has given way to include both human capital (Martin & Sunley 1998) and social infrastructure as essential ingredients to a nations’ economic potential (Saygili & Ozdemir 2021). Specifically education directly effects human capital, and factors such as environmental protections and healthcare access contribute to social infrastructure (Trinh et al. 2023, Saygili & Ozdemir 2021). Emerging from the traditional view of labour growth, gender diversity and female engagement in the workforce directly impacts labour growth rates and positively impacts on output growth rates (Dahlum et al. 2022). This report will thus discuss and analyse the four questions:
+Neo-classical economic growth models (such as the Cobbs-Douglas production function) suggest that GDP can be forecasted using a linear combination of national technology and capital levels, and labour growth [@Dykas2023]. Within the scope of “capital”, endogenous growth theory suggests that traditional physical capital has given way to include both human capital [@Martin1998] and social infrastructure as essential ingredients to a nations’ economic potential [@Saygili2021]. Specifically education directly effects human capital, and factors such as environmental protections and healthcare access contribute to social infrastructure [@Trinh2023] [@Saygili2021]. Emerging from the traditional view of labour growth, gender diversity and female engagement in the workforce directly impacts labour growth rates and positively impacts on output growth rates [@Dahlum2022]. This report will thus discuss and analyse the four questions:
 
 1. Does higher levels of education lead to better economic growth?
 2. Do environmental protections lead to increased economic growth?
@@ -118,9 +121,9 @@ summary(Econ_model)
 ```
 ## ***Discussion***
 
-Regaring healthcare access, the plots analysing the relationship between healthcare expenditure and GDP per capita show a random scatter in the data but with a generally - yet weak - positive trend overall. Faceted for specific regions the data shows only positive correlations in Eastern Asia and Northern Europe, whereas other regions do not illustrate a linear relationship. With respect to life expectancy, the line-plot shows a positive trending relationship between increased life expectancy and increased GDP per capita, however strong variation exists around a strictly linear relationship, indicating a weak correlation. Thus whilst a weak relationship does seem to exist in the data between healthcare access and GDP, this is contrary to the findings in the literature, which suggest a stronger correlation (Saygili & Ozdemir 2021).
+Regaring healthcare access, the plots analysing the relationship between healthcare expenditure and GDP per capita show a random scatter in the data but with a generally - yet weak - positive trend overall. Faceted for specific regions the data shows only positive correlations in Eastern Asia and Northern Europe, whereas other regions do not illustrate a linear relationship. With respect to life expectancy, the line-plot shows a positive trending relationship between increased life expectancy and increased GDP per capita, however strong variation exists around a strictly linear relationship, indicating a weak correlation. Thus whilst a weak relationship does seem to exist in the data between healthcare access and GDP, this is contrary to the findings in the literature, which suggest a stronger correlation [@Saygili2021].
 
-In analysing gender diversity data, the scatterplots of female labour participation and GDP per capita showed an overall random scatter, suggesting a lack of linear correlation. However when faceted by region, Western and Northern Europe and Western Asia, showed a mildly positive correlation between female labour participation and increased GDP. Conversely the line graph illustrating the dependency of GDP per capita on the amount of female parliamentarians showed no linear correlation whatsoever. Given Dahlum et al. (2022) strongly conclude that female economic participation is determinative of economic growth - at least in the long-run -, these results are contradictory to the literature.
+In analysing gender diversity data, the scatterplots of female labour participation and GDP per capita showed an overall random scatter, suggesting a lack of linear correlation. However when faceted by region, Western and Northern Europe and Western Asia, showed a mildly positive correlation between female labour participation and increased GDP. Conversely the line graph illustrating the dependency of GDP per capita on the amount of female parliamentarians showed no linear correlation whatsoever. Given @Dahlum2022 strongly conclude that female economic participation is determinative of economic growth - at least in the long-run -, these results are contradictory to the literature.
 
 Furthermore, multiple linear regression was constructed to model GDP per capita as a function of health expenditure, life expectancy, female labour participation and the amount of female parliamentarians. Whilst these 4 variables accounted for 55.1% of the variation in the GDP per capita data (with a R-squared value of 0.551), only life expectancy was statistically significant (below a 0.01 threshold). 
 
@@ -129,13 +132,3 @@ Furthermore, multiple linear regression was constructed to model GDP per capita 
 This report purported to affirm the validity of endogenous growth theories which suggest that traditional variables of economic growth - capital and labour - can be expanded to include human and social infrastructure and gender diversity. In analysing the relationships between economic growth measured by GDP with healthcare access and female economic participation, the results indicated that life expectancy had a strong correlation to GDP per capita, whereas healthcare expenditure only showed linear relationships in particular geographical regions: Eastern Asia and Northern Europe. Likewise female labour participation also only showed a linear relationship in specific regions: Western and Northern Europe and Western Asia; whereas the rate of female parliamentarians was not associated to GDP per capita variation. Thus whilst these variables mostly showed mild positive associations, the results were mixed and could be better analysed by expanding the scope of study to include more then one year, which limited this analysis.
 
 # ***References***
-
-Dahlum, S., Knutsen, C. H., & Mechkova, V. (2022). Women’s political empowerment and economic growth. *World Development*, 156, 105822. https://doi.org/10.1016/j.worlddev.2022.105822.
-
-Dykas, P., Tokarski, T., Wisła, R., & Taylor & Francis. (2023). *The Solow model of economic growth: application to contemporary macroeconomic issues*. Routledge, Taylor & Francis Group. https://doi.org/10.4324/9781003323792
-
-Martin, R., & Sunley, P. (1998). Slow convergence? The new endogenous growth theory and regional development. *Economic Geography*, 74(3), 201–227. https://doi.org/10.1111/j.1944-8287.1998.tb00113.x
-
-Saygılı, H., & Özdemir, K. A. (2021). Regional economic growth in Turkey: the effects of physical, social and financial infrastructure investment. *Empirical Economics*, 60(4), 2039–2061. https://doi.org/10.1007/s00181-020-01828-0
-
-Trinh, H. H., McCord, M., Lo, D., & Squires, G. (2023). Do green growth and technological innovation matter to infrastructure investments in the era of climate change? Global evidence. *Applied Economics*, 55(35), 4108–4129. https://doi.org/10.1080/00036846.2022.2125493
