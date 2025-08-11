@@ -1,0 +1,193 @@
+---
+title: "ETO5513 Assignment 2"
+author: "Gustav McRae-Johns"
+date: "`r Sys.Date()`"
+output:
+  html_document: default
+bibliography: references.bib
+csl: apa.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(tidyr)
+library(readr)
+library(ggplot2)
+library(knitr)
+library(rmarkdown)
+
+```
+
+# Introduction
+
+Economic development is influenced by a range of social and structural factors. Among these, education expenditure and employment in industry are widely recognised as key contributors to national income. [-@HanushekWoessmann2010] argue that investment in education leads to long-term productivity growth through improved human capital. Similarly, the role of industry has been emphasised in growth theory, particularly through the work of [-@Kaldor1966] and [-@Kuznets1966], who linked industrialisation to structural transformation and economic development. This study investigates two research questions:
+
+1. Is there a relationship between education expenditure and GDP per capita?
+2. How does the proportion of employment in industry relate to GDP per capita?
+
+Using cross-country data, we aim to explore these relationships.
+
+***
+
+# Load and Clean Data
+
+```{r load-data, message=FALSE, warning=FALSE}
+Econ_data <- read_csv("soci_econ_country_profiles.csv")  
+
+# Clean and rename variables
+Econ_clean <- Econ_data %>%
+  select(
+    Country = country,  
+    GDP_per_Capita = `GDP per capita (current US$)`,
+    Education_Expenditure = `Education: Government expenditure (% of GDP)`,
+    Industry_Employment = `Employment: Industry (% of employed)`,
+  ) %>%
+  drop_na() %>%
+  filter(
+    GDP_per_Capita > 0,
+    Education_Expenditure > 0,
+    Industry_Employment > 0,
+  )
+```
+***
+
+# Descriptive Summary
+
+```{r summary-tables, message=FALSE, warning=FALSE}
+
+# GDP per Capita
+Econ_clean %>%
+  summarise(
+    Mean = mean(GDP_per_Capita, na.rm = TRUE),
+    SD   = sd(GDP_per_Capita, na.rm = TRUE),
+    Min  = min(GDP_per_Capita, na.rm = TRUE),
+    Max  = max(GDP_per_Capita, na.rm = TRUE)
+  ) %>%
+  mutate(across(everything(), as.numeric)) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = "Statistic",
+    values_to = "Value"
+  ) %>%
+  kable(
+    digits = 2,
+    caption = "GDP per Capita — Descriptive Statistics"
+  )
+
+# Education Expenditure
+Econ_clean %>%
+  summarise(
+    Mean = mean(Education_Expenditure, na.rm = TRUE),
+    SD   = sd(Education_Expenditure, na.rm = TRUE),
+    Min  = min(Education_Expenditure, na.rm = TRUE),
+    Max  = max(Education_Expenditure, na.rm = TRUE)
+  ) %>%
+  mutate(across(everything(), as.numeric)) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = "Statistic",
+    values_to = "Value"
+  ) %>%
+  kable(
+    digits = 2,
+    caption = "Education Expenditure (% of GDP) — Descriptive Statistics"
+  )
+
+# Industry Employment
+Econ_clean %>%
+  summarise(
+    Mean = mean(Industry_Employment, na.rm = TRUE),
+    SD   = sd(Industry_Employment, na.rm = TRUE),
+    Min  = min(Industry_Employment, na.rm = TRUE),
+    Max  = max(Industry_Employment, na.rm = TRUE)
+  ) %>%
+  mutate(across(everything(), as.numeric)) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = "Statistic",
+    values_to = "Value"
+  ) %>%
+  kable(
+    digits = 2,
+    caption = "Industry Employment (% of Employed) — Descriptive Statistics"
+  )
+
+```
+
+***
+
+# Analysis: Education Expenditure and GDP per Capita
+
+```{r plot-education-gdp, message=FALSE, warning=FALSE}
+ggplot(Econ_clean, aes(x = Education_Expenditure, y = GDP_per_Capita)) +
+  geom_point(alpha = 0.6, colour = "steelblue") +
+  geom_smooth(method = "lm", se = TRUE, colour = "darkred") +
+  labs(
+    title = "Relationship Between Education Expenditure and GDP per Capita",
+    x = "Education Expenditure (% of GDP)",
+    y = "GDP per Capita (US$)"
+  ) +
+  theme_minimal()
+```
+
+**Analysis of Education on GDP:**  
+The scatter plot shows the relationship between education expenditure as a percentage of GDP and GDP per capita across countries. While a few high-income countries do invest more in education (6–8%), the overall trend appears weak and diffuse. Countries with similar education spending (e.g., 4–6% of GDP) show vastly different economic outcomes, with GDP per capita ranging from under $5,000 to over $80,000.
+
+This pattern suggests that education expenditure alone is not a strong predictor of national income. Although economic theory [-@HanushekWoessmann2010] supports the idea that investment in education fosters long-term growth, this may depend on additional factors such as education quality, governance, efficiency of spending, or the stage of economic development. Some low-income countries may invest in education but face barriers in translating that investment into productivity gains.
+
+Overall, the findings highlight that while education is an important component of human capital, expenditure as a share of GDP may not capture the full picture. Future analysis could benefit from including more nuanced variables—such as test scores, enrolment rates, or lagged effects—to better reflect education’s contribution to growth.
+
+# Analysis: Industry Employment and GDP per Capita
+
+```{r plot-industry-gdp, message=FALSE, warning=FALSE}
+ggplot(Econ_clean, aes(x = Industry_Employment, y = GDP_per_Capita)) +
+  geom_point(alpha = 0.6, colour = "forestgreen") +
+  geom_smooth(method = "lm", se = TRUE, colour = "darkred") +
+  labs(
+    title = "Relationship Between Industry Employment and GDP per Capita",
+    x = "Employment in Industry (% of Employed Population)",
+    y = "GDP per Capita (US$)"
+  ) +
+  theme_minimal()
+```
+
+**Summary:**  
+The scatter plot examining the relationship between industry employment share and GDP per capita reveals a slightly negative linear trend. Countries with a higher proportion of their workforce employed in industry tend to have lower GDP per capita, while countries with higher incomes tend to show lower industrial employment, typically between 15–25%.
+
+This finding may seem counterintuitive at first but is well supported by structural transformation theory [-@Kuznets1966]. In the early stages of development, countries tend to shift workers from agriculture into industry, leading to productivity gains. However, as countries continue to develop, their economies tend to move toward the service sector, where value-added and innovation often drive further income growth. As a result, post-industrial economies may show both lower industrial employment and higher GDP per capita.
+
+The slight negative trend also reflects the current global economic landscape, where advanced economies have largely deindustrialised and rely more on services and knowledge-based industries. In contrast, many middle- and low-income countries still depend on industrial jobs but may lack the infrastructure or productivity to translate that into sustained income growth.
+
+These results suggest that industrial employment is a development stage indicator, not a direct driver of GDP per capita in high-income contexts.
+
+***
+
+# Conclusion
+
+This analysis examined how education expenditure and industrial employment relate to GDP per capita across countries. The findings suggest that neither variable alone offers a strong or consistent explanation of income levels. The relationship between education spending and GDP appears highly variable, likely due to differences in education quality, governance, or lag effects. Similarly, higher employment in industry tends to occur in lower-income, industrialising economies, whereas high-income countries show lower industrial employment, reflecting structural transformation.
+
+Overall, the visual trends lack clarity, indicating that simple bivariate analysis may be insufficient. A more robust approach—such as multiple or non-linear regression models, or inclusion of additional variables (e.g., productivity, service sector size, or education quality)—may yield deeper insights into the complex drivers of GDP.
+
+***
+
+# References
+
+Hanushek, EA & Woessmann, L 2010, *The economics of international differences in educational achievement*, NBER Working Paper No. 15949, National Bureau of Economic Research, viewed 7 August 2025, <https://www.nber.org/papers/w15949>.
+
+Kaldor, N 1966, *Causes of the slow rate of economic growth of the United Kingdom*, Cambridge University Press, Cambridge.
+
+Kuznets, S 1966, *Modern economic growth: Rate, structure and spread*, Yale University Press, New Haven.
+
+UNIDO (United Nations Industrial Development Organization) 2013, *Industrial development report 2013: Sustaining employment growth*, UNIDO, Vienna, viewed 7 August 2025, <https://www.unido.org/sites/default/files/2013-12/UNIDO_IDR_2013_0.pdf>.
+
+
+# References
+
+Hanushek, EA & Woessmann, L 2010, *The economics of international differences in educational achievement*, NBER Working Paper No. 15949, National Bureau of Economic Research, viewed 7 August 2025, <https://www.nber.org/papers/w15949>.
+
+Kaldor, N 1966, *Causes of the slow rate of economic growth of the United Kingdom*, Cambridge University Press, Cambridge.
+
+Kuznets, S 1966, *Modern economic growth: Rate, structure and spread*, Yale University Press, New Haven.
+
+UNIDO (United Nations Industrial Development Organization) 2013, *Industrial development report 2013: Sustaining employment growth*, UNIDO, Vienna, viewed 7 August 2025, <https://www.unido.org/sites/default/files/2013-12/UNIDO_IDR_2013_0.pdf>.
